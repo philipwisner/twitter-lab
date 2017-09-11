@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Scheme = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const tweetSchema = new Schema({
   tweet: {
@@ -11,7 +11,7 @@ const tweetSchema = new Schema({
     ref: "User"
   },
   user_name: String,
-},
+}, {
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 });
 

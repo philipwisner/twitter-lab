@@ -1,3 +1,4 @@
+//Required packages and Middleware
 const express = require('express');
 const path = require('path');
 const favicon = require('static-favicon');
@@ -9,22 +10,23 @@ const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
+//Route constants
 const routes = require('./routes/index');
 const authController = require('./routes/authController');
 const tweetsController = require('./routes/tweetsController');
 
+//Create mongodb
 mongoose.connect('mongodb://localhost/twitter-lab-development');
 
+//Create Express App
 const app = express();
 
-
-// view engine setup
+//View Engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set("layout", "layouts/main-layout");
 
 app.use(expressLayouts);
-app.title = 'Twitter';
 app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -40,6 +42,8 @@ app.use(session({
   })
 }));
 
+
+//Router directoryn setup
 app.use('/', routes);
 app.use('/', authController);
 app.use('/tweets', tweetsController);
