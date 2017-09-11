@@ -10,10 +10,12 @@ const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
-//Route constants
+//Controllers
 const routes = require('./routes/index');
 const authController = require('./routes/authController');
 const tweetsController = require('./routes/tweetsController');
+const timelineController = require('./routes/timelineController');
+const profileController  = require('./routes/profileController');
 
 //Create mongodb
 mongoose.connect('mongodb://localhost/twitter-lab-development');
@@ -26,6 +28,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set("layout", "layouts/main-layout");
 
+//Middldeware use
 app.use(expressLayouts);
 app.use(favicon());
 app.use(logger('dev'));
@@ -33,6 +36,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//Initialize session
 app.use(session({
   secret: "basic-auth-secret",
   cookie: { maxAge: 60000 },
@@ -43,10 +48,12 @@ app.use(session({
 }));
 
 
-//Router directoryn setup
+//Routes
 app.use('/', routes);
 app.use('/', authController);
 app.use('/tweets', tweetsController);
+app.use('/timeline', timelineController);
+// app.use('/profile', profileController);
 
 
 /// catch 404 and forwarding to error handler

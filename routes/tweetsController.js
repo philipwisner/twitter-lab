@@ -6,10 +6,10 @@ const User  = require("../models/user");
 const Tweet = require("../models/tweet");
 
 
-
-
 const moment = require("moment");
-// other code
+
+
+//Route to get tweet index view and display all tweets in order
 tweetsController.get("/", (req, res, next) => {
   User
     .findOne({ username: req.session.currentUser.username }, "_id username")
@@ -29,26 +29,12 @@ tweetsController.get("/", (req, res, next) => {
   });
 });
 
-
-
-
-
-
-
-
 //Route to check if logged in
 tweetsController.use((req, res, next) => {
   if (req.session.currentUser) { next(); }
   else { res.redirect("/login"); }
 });
 
-//Route to show tweet overview
-tweetsController.get("/", (req, res, next) => {
-  res.render(
-    "tweets/index",
-    { username: req.session.currentUser.username}
-  );
-});
 
 //Route that renders the new tweet view
 tweetsController.get("/new", (req, res, next) => {
@@ -83,5 +69,16 @@ tweetsController.post("/", (req, res, next) => {
     });
   });
 });
+
+// Tweet.find({ "user_name": user.username }, "tweet created_at")
+//   .sort({ created_at: -1 })
+//   .exec((err, tweets) => {
+//     res.render("profile/show", {
+//       tweets,
+//       moment,
+//       username: user.username,
+//       session: req.session.currentUser
+//     });
+// });
 
 module.exports = tweetsController;

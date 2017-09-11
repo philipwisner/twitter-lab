@@ -22,5 +22,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/philipwisner/twitter-lab.git"
+  },
+  "bugs": {
+    "url": "https://github.com/philipwisner/twitter-lab/issues"
+  },
+  "homepage": "https://github.com/philipwisner/twitter-lab#readme",
   "description": ""
 }
